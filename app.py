@@ -186,17 +186,11 @@ def sort_movies(df, sort_method):
 
 def render_sidebar():
     """
-    Builds the sidebar branding layout and handles the secure API key input.
+    Builds the sidebar branding layout and grabs the secure API key.
     """
     with st.sidebar:
         st.title("📼 YAMO")
         st.markdown("### Yet Another Movie Organizer")
-        
-        st.divider()
-        st.markdown("### ⚙️ Settings")
-        # type="password" securely hides the key visually on the screen
-        api_key = st.text_input("Enter TMDB API Key:", type="password", 
-                                help="Get your free key at themoviedb.org")
         
         st.divider()
         st.markdown(
@@ -204,6 +198,9 @@ def render_sidebar():
             "Our TF-IDF math matches your vibe against live TMDB data."
         )
         st.markdown("**Version:** 3.0.0 (Live API Edition)")
+        
+        # This securely pulls the key from the Streamlit Cloud vault!
+        return st.secrets["TMDB_API_KEY"]
         
         return api_key
 
